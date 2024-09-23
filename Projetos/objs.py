@@ -1,3 +1,10 @@
+
+# Alunos: 
+#   1. Bernardo Tameirão (12733212) 
+#   2. João Gabriel Sasseron Roberto Amorim (12542564)
+# Disciplina**: SCC0250 - Computação Gráfica (2024/2)
+# Docente**: Jean Roberto Ponciano
+
 import numpy as np
 
 SET_POSITION_HEARTHS = 0

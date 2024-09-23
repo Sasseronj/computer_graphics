@@ -245,6 +245,7 @@ matriz resultante explicando o que é cada matriz e seus componentes.**
       $$
 
       Agora multiplicando a matriz resultante pelo ponto de origem e destino, teremos as esqueções: $(8, 6) \rightarrow (0, 4)$ e $(5, 2) \rightarrow (4, 1)$
+      
       $$
         \begin{align*}
          0&=8c-6s+cx-sy, \\
@@ -258,3 +259,121 @@ matriz resultante explicando o que é cada matriz e seus componentes.**
       $$
         s= 0.091, c=0.4541, x=-6.302, y=2.4676
       $$
+
+11.  Dado um vértice/ponto posicionado em x=27 e y=4, apresente as matrizes de 
+transformação para (1) espelhar esse vértice em relação ao eixo X e (2) 
+espelhar esse vértice em relação ao eixo Y.
+
+12. Diferencie as matrizes de rotação 3D de acordo com o eixo de rotação. Por 
+que a rotação 3D é mais complexa que a 2D?
+
+    $$
+      R_z = 
+      \begin{bmatrix}
+        \cos \theta & - \sin \theta & 0 & 0 \\
+        \sin \theta &  \cos \theta  & 0 & 0 \\
+        0           &  0            & 1 & 0 \\
+        0           &  0            & 0 & 1
+      \end{bmatrix}
+    
+      R_x = 
+        \begin{bmatrix}
+          1  &  0            & 0             & 0 \\
+          0  &  \cos \theta  & - \sin \theta & 0 \\
+          0  &  \sin \theta  & \cos \theta   & 0 \\
+          0  &  0            & 0             & 1
+        \end{bmatrix}
+    
+      R_y = 
+        \begin{bmatrix}
+          \cos \theta   &  0  & \sin \theta & 0 \\
+          0             &  1  & 0           & 0 \\
+          - \sin \theta &  0  & \cos \theta & 0 \\
+          0             &  0  & 0           & 1
+        \end{bmatrix}
+    $$
+
+    As matrizes de transformação 3D são mais complexas por além de obvimante possuirem mais um eixo em questão, a rotação ao redor de um ponto do eixo deve manter os pontos ao longo dele inalterados.
+
+# Revisão
+
+1. **Faça uma reflexão do triângulo ABC abaixo ao redor do eixo y e então translade 8 unidades para baixo. Quais as novas coordenadas $A``B``C``$**.
+
+    $$
+      A(8, 8), B(2, 4), C(10, 2)
+    $$
+
+      $$
+        \begin{bmatrix}
+          8 \\
+          8 \\
+          1 
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          1  &  0  &  0 \\
+          0  &  1  & -8 \\
+          0  &  0  &  1                  
+        \end{bmatrix}    
+        \cdot
+        \begin{bmatrix}
+          1  &  0  & -8 \\
+          0  &  1  & -8 \\
+          0  &  0  &  0                  
+        \end{bmatrix}
+        \begin{bmatrix}
+          8 \\
+          8 \\
+          1                 
+        \end{bmatrix}
+        \cdot 
+    $$
+
+2. **Diga qual sequência de transformações deve ser aplicada para rotacioanr as hélices do moinho de vento ao lado ao redor do eixo delas em $5º$ no sentido anti-horário. Explicite os valores dos parâmetros.**
+
+    Como rotação e escala são operações que dependem de sua localização geométrica, devemos primeiro transladar o objeto para origem depois aplicar a rotação. Assim, depois do objeto já rotacionado poderemos voltar ele para sua posição inicial. Então teriamos:
+
+    $$
+      T(4, 5) \cdot R(-5) \cdot T(-4,-5)
+    $$
+
+    * **OBJ**: 
+      * ângulo positivo = rotação antihorário.
+      * ângulo negativo = rotação horário.
+
+3. **Dados os vértices abaixo, desenhe o que seria renderizado quando usássemos o tipo ``GL_TRIANGULES`` e quando usássemos ``GL_TRIANGULE_STRIP``.**
+    $$
+      (0, 0) \\
+      (0, 1) \\
+      (1, 0) \\
+      (1, 1) \\
+      (2, 0) \\
+      (2, 1) 
+     $$
+    * ``GL_TRIANGULES``:
+      ![alt text](image.png)
+    * ``GL_TRIANGULE_STRIP``:
+      ![alt text](image-1.png)
+
+4. **Com qual conteúdo  visto em aula podemos associar a imagem abaixo? Quais são as duas abordagens represetnadas, quando são usadas e quais características de cada uma?**
+      ![alt text](image-2.png)
+
+5. **Diferencie projeção perspectiva de projeção paralela.**
+   * projeção perspectiva:
+     * Tamanho variável do objeto com perda de medidas.
+     * Contém a noção de profundidade.
+     * Possui ponto de fuga.
+     * Construção de cenas.
+   * projeção perspectiva:
+     * Mantem as medidas dos objetos.
+     * Não possui profundidade.
+     * Não possui pontos de fuga.
+     * Utilizado para manter as medidas do objeto.
+
+6. **Resposndas as itens abaixo:**
+   1. **Quais os parâmetros envolvidos nas transformações de modelagem**
+      Ãngulo, posição e escala para as matrizes.
+   2. **Quais os parâmetros envolvidos na transformação de câmera?**
+      Vetor vertical da câmera e os pontos da câmera e do ponto do focal.
+   3. **Quais os parâmetros envolvidos na transformação de projeção**
+      Os pontos near e far, ângulo e   
