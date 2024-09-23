@@ -258,3 +258,146 @@ matriz resultante explicando o que é cada matriz e seus componentes.**
       $$
         s= 0.091, c=0.4541, x=-6.302, y=2.4676
       $$
+
+11. **Dado um vértice/ponto posicionado em x=D e y=M, apresente as matrizes de 
+transformação para (1) espelhar esse vértice em relação ao eixo X e (2) 
+espelhar esse vértice em relação ao eixo Y.**
+
+      $$ 
+        \begin{bmatrix}
+          -27 \\
+            4 \\
+            1 
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          1 & 0 & x \\
+          0 & 1 & y \\
+          0 & 0 & 1 
+        \end{bmatrix}
+        \cdot
+        \begin{bmatrix}
+          27 \\
+           4 \\
+           1    
+        \end{bmatrix}
+      $$
+
+      Assim, temos que a resolução do sistema é $x=-54$ e $y=0$
+
+      $$ 
+        \begin{bmatrix}
+          27 \\
+          -4 \\
+           1 
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          1 & 0 & x \\
+          0 & 1 & y \\
+          0 & 0 & 1 
+        \end{bmatrix}
+        \cdot
+        \begin{bmatrix}
+          27 \\
+           4 \\
+           1    
+        \end{bmatrix}
+      $$
+
+      Assim, temos que a resolução do sistema é $x=0$ e $y=-8$
+
+12. **Diferencie as matrizes de rotação 3D de acordo com o eixo de rotação. Por 
+que a rotação 3D é mais complexa que a 2D?**
+
+    As matrizes de rotação 3D diferem dependendo do eixo em torno do qual a rotação ocorre. Aqui estão as três principais matrizes de rotação para os eixos X, Y e Z:
+
+    1. **Matriz de rotação em torno do eixo X**:  
+       A rotação ocorre no plano YZ, com a seguinte forma:
+
+       $$
+        R_x(\theta) =
+        \begin{bmatrix}
+        1 & 0 & 0 \\
+        0 & \cos(\theta) & -\sin(\theta) \\
+        0 & \sin(\theta) & \cos(\theta)
+        \end{bmatrix}
+      $$
+
+    2. **Matriz de rotação em torno do eixo Y**:  
+       A rotação ocorre no plano XZ, com a forma:
+
+       $$
+       R_y(\theta) =
+       \begin{bmatrix}
+       \cos(\theta) & 0 & \sin(\theta) \\
+       0 & 1 & 0 \\
+       -\sin(\theta) & 0 & \cos(\theta)
+       \end{bmatrix}
+       $$
+
+    3. **Matriz de rotação em torno do eixo Z**:  
+       A rotação ocorre no plano XY, semelhante à rotação 2D:
+
+       $$
+       R_z(\theta) =
+       \begin{bmatrix}
+       \cos(\theta) & -\sin(\theta) & 0 \\
+       \sin(\theta) & \cos(\theta) & 0 \\
+       0 & 0 & 1
+       \end{bmatrix}
+       $$
+
+    Por que a rotação 3D é mais complexa que a 2D?
+
+    - **Número de eixos**: Em 2D, há apenas um eixo de rotação (o eixo Z que sai da tela), enquanto em 3D, há três eixos (X, Y, Z), permitindo rotações em planos diferentes.
+      
+    - **Ordem de rotação**: No espaço 3D, a ordem na qual as rotações ocorrem é importante devido à **não comutatividade** das matrizes de rotação 3D. Rotacionar em torno de X e depois Y produz um resultado diferente de rotacionar primeiro em Y e depois em X.
+
+    - **Grau de liberdade**: Em 2D, há apenas um grau de liberdade para a rotação (ângulo em torno de um único eixo), mas em 3D há três graus de liberdade, cada um representando uma rotação ao redor de um eixo diferente.
+
+    Essas características tornam a rotação 3D mais complexa e exigem maior atenção à sequência de operações para obter o resultado correto.
+
+    **OBS**: A rotação ao redor de um eixo mantém os pontos ao longo dele inalterados.
+
+
+13. **Uma rotação 3D em torno do eixo A = x, y ou z mantém ou altera o valor da 
+coordenada A dos vértices do objeto? Por que isso ocorre?**
+
+    Como mencionado ana observação acima, a rotação 3D mantém os pontos inalterados ao redor do eixo de rotação.
+
+14. **Explique, com suas palavras, o mapeamento 2D de uma imagem de textura 
+para um objeto 3D. Descreva ao menos três tipos de mapeamento.**
+
+    O mapeamento 2D de uma imagem de textura para um objeto 3D consiste em "envelopar" a superfície de um modelo tridimensional com uma imagem plana (a textura). A ideia é associar as coordenadas da textura 2D (u, v) às coordenadas do objeto 3D (x, y, z), permitindo que a imagem seja projetada corretamente na geometria do objeto, criando a ilusão de detalhes complexos como cor, padrões ou materiais.
+    
+    Quatro tipos comuns de mapeamento de textura:
+
+    1. **Mapeamento UV (UV Mapping)**: O método mais comum de mapeamento. O objeto 3D é "desdobrado" em uma malha plana (como abrir um cubo de papelão) e cada ponto da malha é associado a uma coordenada na imagem 2D (chamada de coordenada UV). As coordenadas UV correspondem a pontos da textura que são aplicados na superfície do objeto. Esse método oferece controle preciso sobre a aplicação da textura e funciona bem para objetos com geometrias complexas.
+
+    2. **Mapeamento Esférico (Spherical Mapping)**: Envolve projetar a textura ao redor de um objeto usando coordenadas polares, como se a textura estivesse sendo projetada de dentro de uma esfera ao redor do objeto. Esse método é adequado para objetos com formas esféricas ou curvas, como planetas ou cabeças humanas, mas pode causar distorções próximas aos polos.
+
+    3. **Mapeamento Cilíndrico (Cylindrical Mapping)**: No mapeamento cilíndrico, a textura é envolvida ao redor do objeto como se estivesse enrolada em torno de um cilindro. Este método é ideal para objetos cilíndricos, como garrafas, troncos ou colunas. Porém, pode causar distorções nas extremidades superior e inferior, onde a superfície diverge de uma forma cilíndrica.
+
+    4. **Mapeamento Planar (Planar Mapping)**: O mapeamento planar projeta a textura em um objeto como se a textura fosse aplicada sobre ele de um único plano. Esse método é útil para superfícies planas ou quase planas, como paredes ou terrenos. Ele funciona como se a textura fosse uma folha sendo "colada" diretamente na superfície. Embora seja simples de aplicar, pode resultar em distorções quando usado em objetos curvos, pois a textura não envolve o objeto completamente.
+
+15. **Explique a relação entre pixel e texel.** 
+
+    A relação entre pixel e texel é a seguinte:
+
+    * **Pixel** é a menor unidade de uma imagem 2D exibida na tela.
+    * **Texel** é a menor unidade de uma textura 2D usada em gráficos 3D.
+
+    Quando uma textura é aplicada a um objeto 3D, os texels são convertidos em pixels na tela. O número de pixels que um texel cobre depende da proximidade do objeto à câmera: objetos próximos mostram mais detalhes, enquanto objetos distantes têm menos detalhes visíveis devido à redução de texels por pixel.
+
+16. **Na parametrização de texturas, explique a diferença entre os parâmetros 
+REPEAT e CLAMP.**
+
+    * **REPEAT**: repete a textura indefinidamente além dos limites de 0 a 1. Isso é útil quando se deseja criar padrões contínuos e repetitivos, como pisos, paredes ou grades.
+    * **CLAMP**: estica o último texel nas bordas da textura quando as coordenadas excedem 0 ou 1, sem repetir. Isso é útil para evitar artefatos ou costuras nas bordas de objetos onde a textura deve parar exatamente, como ao mapear uma única imagem em uma superfície.
+
+17. **Durante o mapeamento de pixels e texels, qual a diferença entre as técnicas 
+LINEAR e NEAREST?**
+    
+    * NEAREST: usa o texel mais próximo, resultando em bordas nítidas e aparência "pixelada". Não faz qualquer tipo de suavização, resultando em uma aparência mais nítida, mas com bordas "duras" ou "pixeladas".
+    * LINEAR: usa interpolação entre texels vizinhos para suavizar a transição, criando uma aparência mais fluida e natural. Isso resulta em uma textura mais suave e fluida, especialmente quando há ampliação ou redução de uma imagem. As transições entre os texels são mais gradativas, eliminando bordas "duras".
