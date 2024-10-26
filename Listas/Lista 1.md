@@ -13,6 +13,8 @@
   * Primárias: Translação, Escala e Rotação
   * Secundárias: Reflexão, Cilhamento
 * Ordem das transformações: Sua ordem importa, e sua matriz de transformação final é dada pela primeiro transformação mais a direita e a última a esquerda.
+* Clipping: Cortar objetos, é mais complexo pois exige a criação de novos triângulos.
+* Culling: Não renderizar objetos, é fácil pois não precisa fazer alterações. 
 
 # Exercícios
 
@@ -263,124 +265,101 @@ matriz resultante explicando o que é cada matriz e seus componentes.**
 11. **Dado um vértice/ponto posicionado em x=D e y=M, apresente as matrizes de 
 transformação para (1) espelhar esse vértice em relação ao eixo X e (2) 
 espelhar esse vértice em relação ao eixo Y.**
-
-      $$ 
-        \begin{bmatrix}
-          -27 \\
-            4 \\
-            1 
-        \end{bmatrix}
-        =
-        \begin{bmatrix}
-          1 & 0 & x \\
-          0 & 1 & y \\
-          0 & 0 & 1 
-        \end{bmatrix}
-        \cdot
-        \begin{bmatrix}
-          27 \\
-           4 \\
-           1    
-        \end{bmatrix}
+      $$
+       Rf_{x}(\theta) =
+       \begin{bmatrix}
+       -1 &  0 & 0 \\
+        0 &  1 & 0 \\
+        0 &  0 & 1
+       \end{bmatrix}
       $$
 
       Assim, temos que a resolução do sistema é $x=-54$ e $y=0$
 
-      $$ 
-        \begin{bmatrix}
-          27 \\
-          -4 \\
-           1 
-        \end{bmatrix}
-        =
-        \begin{bmatrix}
-          1 & 0 & x \\
-          0 & 1 & y \\
-          0 & 0 & 1 
-        \end{bmatrix}
-        \cdot
-        \begin{bmatrix}
-          27 \\
-           4 \\
-           1    
-        \end{bmatrix}
+      $$
+       Rf_{y}(\theta) =
+       \begin{bmatrix}
+        1 &   0 & 0 \\
+        0 &  -1 & 0 \\
+        0 &   0 & 1
+       \end{bmatrix}
       $$
 
       Assim, temos que a resolução do sistema é $x=0$ e $y=-8$
 
-12. **Diferencie as matrizes de rotação 3D de acordo com o eixo de rotação. Por 
+12.  **Diferencie as matrizes de rotação 3D de acordo com o eixo de rotação. Por 
 que a rotação 3D é mais complexa que a 2D?**
 
-    As matrizes de rotação 3D diferem dependendo do eixo em torno do qual a rotação ocorre. Aqui estão as três principais matrizes de rotação para os eixos X, Y e Z:
+      As matrizes de rotação 3D diferem dependendo do eixo em torno do qual a rotação ocorre. Aqui estão as três principais matrizes de rotação para os eixos X, Y e Z:
 
-    1. **Matriz de rotação em torno do eixo X**:  
-       A rotação ocorre no plano YZ, com a seguinte forma:
+        1. **Matriz de rotação em torno do eixo X**:  
+        rotação ocorre no plano YZ, com a seguinte forma:
 
-       $$
-        R_x(\theta) =
-        \begin{bmatrix}
-        1 & 0 & 0 \\
-        0 & \cos(\theta) & -\sin(\theta) \\
-        0 & \sin(\theta) & \cos(\theta)
-        \end{bmatrix}
-      $$
+        $$
+          R_x(\theta) =
+          \begin{bmatrix}
+          1 & 0 & 0 \\
+          0 & \cos(\theta) & -\sin(\theta) \\
+          0 & \sin(\theta) & \cos(\theta)
+          \end{bmatrix}
+        $$
 
-    2. **Matriz de rotação em torno do eixo Y**:  
-       A rotação ocorre no plano XZ, com a forma:
+        2. **Matriz de rotação em torno do eixo Y**:  
+        A rotação ocorre no plano XZ, com a forma:
 
-       $$
-       R_y(\theta) =
-       \begin{bmatrix}
-       \cos(\theta) & 0 & \sin(\theta) \\
-       0 & 1 & 0 \\
-       -\sin(\theta) & 0 & \cos(\theta)
-       \end{bmatrix}
-       $$
+            $$
+            R_y(\theta) =
+            \begin{bmatrix}
+            \cos(\theta) & 0 & \sin(\theta) \\
+            0 & 1 & 0 \\
+            -\sin(\theta) & 0 & \cos(\theta)
+            \end{bmatrix}
+            $$
 
-    3. **Matriz de rotação em torno do eixo Z**:  
-       A rotação ocorre no plano XY, semelhante à rotação 2D:
+        3. **Matriz de rotação em torno do eixo Z**:  
+            A rotação ocorre no plano XY, semelhante à rotação 2D:
 
-       $$
-       R_z(\theta) =
-       \begin{bmatrix}
-       \cos(\theta) & -\sin(\theta) & 0 \\
-       \sin(\theta) & \cos(\theta) & 0 \\
-       0 & 0 & 1
-       \end{bmatrix}
-       $$
+            $$
+            R_z(\theta) =
+            \begin{bmatrix}
+            \cos(\theta) & -\sin(\theta) & 0 \\
+            \sin(\theta) & \cos(\theta) & 0 \\
+            0 & 0 & 1
+            \end{bmatrix}
+            $$
 
-    Por que a rotação 3D é mais complexa que a 2D?
+      Por que a rotação 3D é mais complexa que a 2D?
 
-    - **Número de eixos**: Em 2D, há apenas um eixo de rotação (o eixo Z que sai da tela), enquanto em 3D, há três eixos (X, Y, Z), permitindo rotações em planos diferentes.
+        - **Número de eixos**: Em 2D, há apenas um eixo de rotação (o eixo Z que sai da tela), enquanto em 3D, há três eixos (X, Y, Z), permitindo rotações em planos diferentes.
       
-    - **Ordem de rotação**: No espaço 3D, a ordem na qual as rotações ocorrem é importante devido à **não comutatividade** das matrizes de rotação 3D. Rotacionar em torno de X e depois Y produz um resultado diferente de rotacionar primeiro em Y e depois em X.
+        - **Ordem de rotação**: No espaço 3D, a ordem na qual as rotações ocorrem é importante devido à **não comutatividade** das matrizes de rotação 3D. Rotacionar em torno de X e depois Y produz um resultado diferente de rotacionar primeiro em Y e depois em X.
 
-    - **Grau de liberdade**: Em 2D, há apenas um grau de liberdade para a rotação (ângulo em torno de um único eixo), mas em 3D há três graus de liberdade, cada um representando uma rotação ao redor de um eixo diferente.
+        - **Grau de liberdade**: Em 2D, há apenas um grau de liberdade para a rotação (ângulo em torno de um único eixo), mas em 3D há três graus de liberdade, cada um representando uma rotação ao redor de um eixo diferente.
 
-    Essas características tornam a rotação 3D mais complexa e exigem maior atenção à sequência de operações para obter o resultado correto.
+        Essas características tornam a rotação 3D mais complexa e exigem maior atenção à sequência de operações para obter o resultado correto.
 
-    **OBS**: A rotação ao redor de um eixo mantém os pontos ao longo dele inalterados.
+      **OBS**: A rotação ao redor de um eixo mantém os pontos ao longo dele inalterados.
 
 
-13. **Uma rotação 3D em torno do eixo A = x, y ou z mantém ou altera o valor da 
+13.  **Uma rotação 3D em torno do eixo A = x, y ou z mantém ou altera o valor da 
 coordenada A dos vértices do objeto? Por que isso ocorre?**
 
-    Como mencionado ana observação acima, a rotação 3D mantém os pontos inalterados ao redor do eixo de rotação.
+      Como mencionado ana observação acima, a rotação 3D mantém os pontos inalterados ao redor do eixo de rotação.
 
-14. **Explique, com suas palavras, o mapeamento 2D de uma imagem de textura 
+14.  **Explique, com suas palavras, o mapeamento 2D de uma imagem de textura 
 para um objeto 3D. Descreva ao menos três tipos de mapeamento.**
 
-    O mapeamento 2D de uma imagem de textura para um objeto 3D consiste em "envelopar" a superfície de um modelo tridimensional com uma imagem plana (a textura). A ideia é associar as coordenadas da textura 2D (u, v) às coordenadas do objeto 3D (x, y, z), permitindo que a imagem seja projetada corretamente na geometria do objeto, criando a ilusão de detalhes complexos como cor, padrões ou materiais.
+      O mapeamento 2D de uma imagem de textura para um objeto 3D consiste em "envelopar" a superfície de um modelo tridimensional com uma imagem plana (a textura). A ideia é associar as coordenadas da textura 2D (u, v) às coordenadas do objeto 3D (x, y, z), permitindo que a imagem seja projetada corretamente na geometria do objeto, criando a ilusão de detalhes complexos como cor, padrões ou materiais.
     
-    Quatro tipos comuns de mapeamento de textura:
+      Quatro tipos comuns de mapeamento de textura:
 
-    1. **Mapeamento UV (UV Mapping)**: O método mais comum de mapeamento. O objeto 3D é "desdobrado" em uma malha plana (como abrir um cubo de papelão) e cada ponto da malha é associado a uma coordenada na imagem 2D (chamada de coordenada UV). As coordenadas UV correspondem a pontos da textura que são aplicados na superfície do objeto. Esse método oferece controle preciso sobre a aplicação da textura e funciona bem para objetos com geometrias complexas.
+        1. **Mapeamento UV (UV Mapping)**: O método mais comum de mapeamento. O objeto 3D é "desdobrado" em uma malha plana (como abrir um cubo de papelão) e cada ponto da malha é associado a uma coordenada na imagem 2D (chamada de coordenada UV). As coordenadas UV correspondem a pontos da textura que são aplicados na superfície do objeto. Esse método oferece controle preciso sobre a aplicação da textura e funciona bem para objetos com geometrias complexas.
 
-    2. **Mapeamento Esférico (Spherical Mapping)**: Envolve projetar a textura ao redor de um objeto usando coordenadas polares, como se a textura estivesse sendo projetada de dentro de uma esfera ao redor do objeto. Esse método é adequado para objetos com formas esféricas ou curvas, como planetas ou cabeças humanas, mas pode causar distorções próximas aos polos.
+        2. **Mapeamento Esférico (Spherical Mapping)**: Envolve projetar a textura ao redor de um objeto usando coordenadas polares, como se a textura estivesse sendo projetada de dentro de uma esfera ao redor do objeto. Esse método é adequado para objetos com formas esféricas ou curvas, como planetas ou cabeças humanas, mas pode causar distorções próximas aos polos.
 
-    3. **Mapeamento Cilíndrico (Cylindrical Mapping)**: No mapeamento cilíndrico, a textura é envolvida ao redor do objeto como se estivesse enrolada em torno de um cilindro. Este método é ideal para objetos cilíndricos, como garrafas, troncos ou colunas. Porém, pode causar distorções nas extremidades superior e inferior, onde a superfície diverge de uma forma cilíndrica.
+        3. **Mapeamento Cilíndrico (Cylindrical Mapping)**: No mapeamento cilíndrico, a textura é envolvida ao redor do objeto como se estivesse enrolada em torno de um cilindro. Este método é ideal para objetos cilíndricos, como garrafas, troncos ou colunas. Porém, pode causar distorções nas extremidades superior e inferior, onde a superfície diverge de uma forma cilíndrica.
 
-    4. **Mapeamento Planar (Planar Mapping)**: O mapeamento planar projeta a textura em um objeto como se a textura fosse aplicada sobre ele de um único plano. Esse método é útil para superfícies planas ou quase planas, como paredes ou terrenos. Ele funciona como se a textura fosse uma folha sendo "colada" diretamente na superfície. Embora seja simples de aplicar, pode resultar em distorções quando usado em objetos curvos, pois a textura não envolve o objeto completamente.
+        4. **Mapeamento Planar (Planar Mapping)**: O mapeamento planar projeta a textura em um objeto como se a textura fosse aplicada sobre ele de um único plano. Esse método é útil para superfícies planas ou quase planas, como paredes ou terrenos. Ele funciona como se a textura fosse uma folha sendo "colada" diretamente na superfície. Embora seja simples de aplicar, pode resultar em distorções quando usado em objetos curvos, pois a textura não envolve o objeto completamente.
 
 15. **Explique a relação entre pixel e texel.** 
 
@@ -391,132 +370,70 @@ para um objeto 3D. Descreva ao menos três tipos de mapeamento.**
 
     Quando uma textura é aplicada a um objeto 3D, os texels são convertidos em pixels na tela. O número de pixels que um texel cobre depende da proximidade do objeto à câmera: objetos próximos mostram mais detalhes, enquanto objetos distantes têm menos detalhes visíveis devido à redução de texels por pixel.
 
-16. **Na parametrização de texturas, explique a diferença entre os parâmetros 
+16.   **Na parametrização de texturas, explique a diferença entre os parâmetros 
 REPEAT e CLAMP.**
 
-    * **REPEAT**: repete a textura indefinidamente além dos limites de 0 a 1. Isso é útil quando se deseja criar padrões contínuos e repetitivos, como pisos, paredes ou grades.
-    * **CLAMP**: estica o último texel nas bordas da textura quando as coordenadas excedem 0 ou 1, sem repetir. Isso é útil para evitar artefatos ou costuras nas bordas de objetos onde a textura deve parar exatamente, como ao mapear uma única imagem em uma superfície.
+      * **REPEAT**: repete a textura indefinidamente além dos limites de 0 a 1. Isso é útil quando se deseja criar padrões contínuos e repetitivos, como pisos, paredes ou grades.
+      * **CLAMP**: estica o último texel nas bordas da textura quando as coordenadas excedem 0 ou 1, sem repetir. Isso é útil para evitar artefatos ou costuras nas bordas de objetos onde a textura deve parar exatamente, como ao mapear uma única imagem em uma superfície.
 
-17. **Durante o mapeamento de pixels e texels, qual a diferença entre as técnicas 
+17.   **Durante o mapeamento de pixels e texels, qual a diferença entre as técnicas 
 LINEAR e NEAREST?**
     
-    * NEAREST: usa o texel mais próximo, resultando em bordas nítidas e aparência "pixelada". Não faz qualquer tipo de suavização, resultando em uma aparência mais nítida, mas com bordas "duras" ou "pixeladas".
-    * LINEAR: usa interpolação entre texels vizinhos para suavizar a transição, criando uma aparência mais fluida e natural. Isso resulta em uma textura mais suave e fluida, especialmente quando há ampliação ou redução de uma imagem. As transições entre os texels são mais gradativas, eliminando bordas "duras".
+      * NEAREST: usa o texel mais próximo, resultando em bordas nítidas e aparência "pixelada". Não faz qualquer tipo de suavização, resultando em uma aparência mais nítida, mas com bordas "duras" ou "pixeladas".
+      * LINEAR: usa interpolação entre texels vizinhos para suavizar a transição, criando uma aparência mais fluida e natural. Isso resulta em uma textura mais suave e fluida, especialmente quando há ampliação ou redução de uma imagem. As transições entre os texels são mais gradativas, eliminando bordas "duras".
 
-11.  Dado um vértice/ponto posicionado em x=27 e y=4, apresente as matrizes de 
-transformação para (1) espelhar esse vértice em relação ao eixo X e (2) 
-espelhar esse vértice em relação ao eixo Y.
+18.   **As matrizes Model, View e Projection utilizam transformações geométricas 
+3D para compor as coordenadas de mundo, visão e clip. Esse processo 
+também é chamado de pipeline do Viewing 3D. Escreva, com suas palavras, 
+a função de cada etapa do pipeline.**
 
-12. Diferencie as matrizes de rotação 3D de acordo com o eixo de rotação. Por 
-que a rotação 3D é mais complexa que a 2D?
+      A primeira etapa do pipeline gráfico é o espaço local. Nesse estágio, os objetos são desenhados usando primitivas básicas, como pontos, linhas e triângulos. Esses objetos são definidos no seu próprio sistema de coordenadas. Para movermos esses objetos para um espaço compartilhado com outros, aplicamos a matriz de modelagem (Model Matrix), que realiza operações como translação (mover), rotação, escala, reflexão e cisalhamento. Essas transformações organizam os objetos em um espaço global, formando a cena completa.
 
-    $$
-      R_z = 
-      \begin{bmatrix}
-        \cos \theta & - \sin \theta & 0 & 0 \\
-        \sin \theta &  \cos \theta  & 0 & 0 \\
-        0           &  0            & 1 & 0 \\
-        0           &  0            & 0 & 1
-      \end{bmatrix}
-    
-      R_x = 
-        \begin{bmatrix}
-          1  &  0            & 0             & 0 \\
-          0  &  \cos \theta  & - \sin \theta & 0 \\
-          0  &  \sin \theta  & \cos \theta   & 0 \\
-          0  &  0            & 0             & 1
-        \end{bmatrix}
-    
-      R_y = 
-        \begin{bmatrix}
-          \cos \theta   &  0  & \sin \theta & 0 \\
-          0             &  1  & 0           & 0 \\
-          - \sin \theta &  0  & \cos \theta & 0 \\
-          0             &  0  & 0           & 1
-        \end{bmatrix}
-    $$
+      A segunda etapa envolve a matriz de visualização (View Matrix), que define como e de onde veremos essa cena. Ela cria o espaço de visão, onde a câmera é posicionada, determinando o ponto de vista e a orientação da cena.
 
-    As matrizes de transformação 3D são mais complexas por além de obvimante possuirem mais um eixo em questão, a rotação ao redor de um ponto do eixo deve manter os pontos ao longo dele inalterados.
+      Na terceira etapa, aplicamos a matriz de projeção (Projection Matrix). Essa matriz define como a cena será projetada na tela, aplicando planos de corte para delimitar o volume visível. Esse processo realiza o clipping (recorte) e o culling (eliminação) de objetos fora do campo de visão, garantindo que apenas o que está dentro do volume visível seja renderizado.
 
-# Revisão
+      Por fim, temos a etapa final do pipeline, onde a transformação de tela (Viewport Transformation) é aplicada, convertendo as coordenadas dos objetos processados para o espaço de tela. Essa última etapa prepara os objetos para o rendering na tela, exibindo-os de acordo com as transformações aplicadas nas etapas anteriores.
 
-1. **Faça uma reflexão do triângulo ABC abaixo ao redor do eixo y e então translade 8 unidades para baixo. Quais as novas coordenadas $A``B``C``$**.
+19. **Apresente a matriz Model para transladar a pirâmide abaixo em -4 no eixo z, 
+ou seja, para posicionar a pirâmide mais ao “fundo” no espaço de mundo. 
+Uma  vez  posicionada,  quais  são  suas  novas  coordenadas  (isto  é,  suas 
+coordenadas no espaço de mundo)?**
 
-    $$
-      A(8, 8), B(2, 4), C(10, 2)
-    $$
+      ![alt text](image.png)
+
 
       $$
-        \begin{bmatrix}
-          8 \\
-          8 \\
-          1 
-        \end{bmatrix}
-        =
-        \begin{bmatrix}
-          1  &  0  &  0 \\
-          0  &  1  & -8 \\
-          0  &  0  &  1                  
-        \end{bmatrix}    
-        \cdot
-        \begin{bmatrix}
-          1  &  0  & -8 \\
-          0  &  1  & -8 \\
-          0  &  0  &  0                  
-        \end{bmatrix}
-        \begin{bmatrix}
-          8 \\
-          8 \\
-          1                 
-        \end{bmatrix}
-        \cdot 
-    $$
+      T(\theta) =
+      \begin{bmatrix}
+      1 & 0 & 0 & 0   \\
+      0 & 1 & 0 & 0   \\
+      0 & 0 & 1 & -4  \\
+      0 & 0 & 0 & 1
+      \end{bmatrix}
+      $$
 
-2. **Diga qual sequência de transformações deve ser aplicada para rotacioanr as hélices do moinho de vento ao lado ao redor do eixo delas em $5º$ no sentido anti-horário. Explicite os valores dos parâmetros.**
+      $$
+      \begin{align}
+      (0   , 1,    0) &= (0   , 1,   -4)`, \\
+      (-0.5, 0, -0.5) &= (-0.5, 0, -4.5)`, \\
+      ( 0.5, 0, -0.5) &= ( 0.5, 0, -4.5)`, \\
+      (-0.5, 0,  0.5) &= (-0.5, 0, -3.5)`, \\
+      ( 0.5, 0,  0.5) &= ( 0.5, 0, -3.5)`, \\
+      \end{align}
+      $$
 
-    Como rotação e escala são operações que dependem de sua localização geométrica, devemos primeiro transladar o objeto para origem depois aplicar a rotação. Assim, depois do objeto já rotacionado poderemos voltar ele para sua posição inicial. Então teriamos:
+20. **Apresente uma matriz View, com parâmetros definidos por você, para a 
+pirâmide acima. Dê as coordenadas da pirâmide no espaço de visão. **
+    
 
-    $$
-      T(4, 5) \cdot R(-5) \cdot T(-4,-5)
-    $$
+23.  **Qual a relação do Frustum com o que será exibido na cena 3D?** 
+ 
+      O frustum é uma pirâmide truncada usada em gráficos 3D para definir a região visível da cena, chamada de viewing volume. Tudo o que está dentro do frustum pode ser renderizado e exibido na tela, enquanto os objetos fora dessa área são descartados (clipping). O frustum é formado pela projeção do espaço 3D no espaço 2D da tela, sendo delimitado por planos próximos (near plane) e distantes (far plane) e tem a forma de uma pirâmide truncada com base retangular.
 
-    * **OBJ**: 
-      * ângulo positivo = rotação antihorário.
-      * ângulo negativo = rotação horário.
+24.  **Pesquise e descreva brevemente o que são as transformações de câmera 
+pitch , yaw e roll .**
 
-3. **Dados os vértices abaixo, desenhe o que seria renderizado quando usássemos o tipo ``GL_TRIANGULES`` e quando usássemos ``GL_TRIANGULE_STRIP``.**
-    $$
-      (0, 0) \\
-      (0, 1) \\
-      (1, 0) \\
-      (1, 1) \\
-      (2, 0) \\
-      (2, 1) 
-     $$
-    * ``GL_TRIANGULES``:
-      ![alt text](image.png)
-    * ``GL_TRIANGULE_STRIP``:
-      ![alt text](image-1.png)
-
-4. **Com qual conteúdo  visto em aula podemos associar a imagem abaixo? Quais são as duas abordagens represetnadas, quando são usadas e quais características de cada uma?**
-      ![alt text](image-2.png)
-
-5. **Diferencie projeção perspectiva de projeção paralela.**
-   * projeção perspectiva:
-     * Tamanho variável do objeto com perda de medidas.
-     * Contém a noção de profundidade.
-     * Possui ponto de fuga.
-     * Construção de cenas.
-   * projeção perspectiva:
-     * Mantem as medidas dos objetos.
-     * Não possui profundidade.
-     * Não possui pontos de fuga.
-     * Utilizado para manter as medidas do objeto.
-
-6. **Resposndas as itens abaixo:**
-   1. **Quais os parâmetros envolvidos nas transformações de modelagem**
-      Ãngulo, posição e escala para as matrizes.
-   2. **Quais os parâmetros envolvidos na transformação de câmera?**
-      Vetor vertical da câmera e os pontos da câmera e do ponto do focal.
-   3. **Quais os parâmetros envolvidos na transformação de projeção**
-      Os pontos near e far, ângulo e   
+      * Pitch: Rotação em torno do eixo X da câmera, movendo-a para cima e para baixo. Esse movimento é semelhante ao de acenar com a cabeça para dizer "sim".
+      * Yaw: Rotação em torno do eixo Y da câmera, movendo-a para os lados (esquerda e direita). É como girar a cabeça para dizer "não".
+      * Roll: Rotação em torno do eixo Z da câmera, inclina-a para os lados, como se a câmera estivesse "tombando". É um movimento de rotação ao redor do eixo que aponta diretamente para a cena.

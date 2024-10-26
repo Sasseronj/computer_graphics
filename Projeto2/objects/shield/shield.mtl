@@ -1,0 +1,13 @@
+# Blender 4.2.3 LTS MTL File: 'None'
+# www.blender.org
+
+newmtl Pavise_Shield
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd C:/Users/Sasseron/Desktop/Pavise_Shield_v2_L3.123c33562236-ed00-4a2c-a220-300d809fd9a2/Pavise_Shield_v2_L3.123c33562236-ed00-4a2c-a220-300d809fd9a2/Pavise_Shield_diff.jpg
+map_Bump C:/Users/Sasseron/Desktop/Pavise_Shield_v2_L3.123c33562236-ed00-4a2c-a220-300d809fd9a2/Pavise_Shield_v2_L3.123c33562236-ed00-4a2c-a220-300d809fd9a2/Map__6_Normal Bump.jpg
